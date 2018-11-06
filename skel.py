@@ -45,7 +45,8 @@ def get_config():
 
 
 parser = argparse.ArgumentParser(prog="active_interfaces_wo_descriptions", description='Skel script to reference when creating other scripts.')
-parser.add_argument("--config_file", help="Cisco configuration file to read from (Default: config.txt)", type=str)
+parser.add_argument("--config_file", help="File to read Cisco configuration from.", type=str)
+parser.add_argument("--print_hostname", help="Prints the hostname from the Cisco configuration.", action='store_true')
 args = parser.parse_args()
 
 # Sets defaults for command line arguments for cli arguments if none were given
@@ -56,7 +57,11 @@ else:
 
 try:
     cisco_cfg = CiscoConfParse(config=cisco_config)
-    print(cisco_cfg.find_objects(r'^hostname')[0].text)
+    hostname = cisco_cfg.find_objects(r'^hostname')[0].text
 except:
     print('[FATAL]\nThere was an issue with the supplied Cisco configuration, unable to parse!')
     exit(1)
+
+if args.print_hostname:
+    print(hostname)
+
