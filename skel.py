@@ -25,43 +25,11 @@ SOFTWARE.
 This is a skeleton script that will by default accept a config file for a cisco config or accept config from
 stdin via a pipeline. To add to this script simply append to the bottom of this file and/or add arguments to the parser section
 """
-from ciscoconfparse import CiscoConfParse
-import argparse
 import os
 import sys
-
-# gets the absolute path on the file system of this file
 script_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(script_path)
+import base
 
-
-def get_config():
-    '''checks if the program was run in a pipeline and if so it will use the data from the pipe as the config file else it will
-    set the config file location to the default config.txt'''
-    if sys.stdin.isatty():
-        print('[FATAL]\nYou must either use this script in a pipeline or specify a configuration file to read!')
-        exit(1)
-    else:
-        return [x.strip('\n') for x in sys.stdin.readlines()]
-
-
-parser = argparse.ArgumentParser(prog="active_interfaces_wo_descriptions", description='Skel script to reference when creating other scripts.')
-parser.add_argument("--config_file", help="File to read Cisco configuration from.", type=str)
-parser.add_argument("--print_hostname", help="Prints the hostname from the Cisco configuration.", action='store_true')
-args = parser.parse_args()
-
-# Sets defaults for command line arguments for cli arguments if none were given
-if not args.config_file:
-    cisco_config = get_config()
-else:
-    cisco_config = args.config_file
-
-try:
-    cisco_cfg = CiscoConfParse(config=cisco_config)
-    hostname = cisco_cfg.find_objects(r'^hostname')[0].text
-except:
-    print('[FATAL]\nThere was an issue with the supplied Cisco configuration, unable to parse!')
-    exit(1)
-
-if args.print_hostname:
-    print(hostname)
-
+t = base.Base()
+cisco_cfg = t.setUp()
