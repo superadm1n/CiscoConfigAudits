@@ -38,12 +38,13 @@ def get_config():
     '''checks if the program was run in a pipeline and if so it will use the data from the pipe as the config file else it will
     set the config file location to the default config.txt'''
     if sys.stdin.isatty():
-        return os.path.join(script_path, 'config.txt')
+        print('[FATAL]\nYou must either use this script in a pipeline or specify a configuration file to read!')
+        exit(1)
     else:
         return [x.strip('\n') for x in sys.stdin.readlines()]
 
 
-parser = argparse.ArgumentParser("active_interfaces_wo_descriptions")
+parser = argparse.ArgumentParser(prog="active_interfaces_wo_descriptions", description='Skel script to reference when creating other scripts.')
 parser.add_argument("--config_file", help="Cisco configuration file to read from (Default: config.txt)", type=str)
 args = parser.parse_args()
 
