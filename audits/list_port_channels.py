@@ -44,7 +44,7 @@ def get_config():
         return [x.strip('\n') for x in sys.stdin.readlines()]
 
 
-parser = argparse.ArgumentParser(prog="active_interfaces_wo_descriptions", description='Skel script to reference when creating other scripts.')
+parser = argparse.ArgumentParser(prog="list_port_channels", description='Skel script to reference when creating other scripts.')
 parser.add_argument("--config_file", help="File to read Cisco configuration from.", type=str)
 parser.add_argument("--print_hostname", help="Prints the hostname from the Cisco configuration.", action='store_true')
 args = parser.parse_args()
