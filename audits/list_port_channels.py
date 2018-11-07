@@ -47,7 +47,11 @@ def map_interfaces_to_ch_groups(cisco_cfg):
             correlated_channel_groups[ch_group] = [x.text]
     return correlated_channel_groups
 
+def clean_port_channel_text(text):
+    return ' '.join(text.split(' ')[:2]).replace('channel-group', 'port channel')
+
+
 analyzed_results = map_interfaces_to_ch_groups(cisco_cfg)
 for x in analyzed_results:
-    print('{}: {}'.format(' '.join(x.split(' ')[:2]).replace('channel-group', 'port channel'), ', '.join(analyzed_results[x])))
+    print('{}: {}'.format(clean_port_channel_text(x), ', '.join(analyzed_results[x])))
 
