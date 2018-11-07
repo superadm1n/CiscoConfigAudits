@@ -22,8 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-This is a skeleton script that will by default accept a config file for a cisco config or accept config from
-stdin via a pipeline. To add to this script simply append to the bottom of this file and/or add arguments to the parser section
+Script to list the local users on a Cisco device
 """
 import os
 import sys
