@@ -30,7 +30,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base()
+t = base.Base(description='Script to list the local users on a Cisco device')
 cisco_cfg = t.setUp()
 
 [print(''.join(x.text.split(' ')[1])) for x in cisco_cfg.find_objects(r'^username')]
