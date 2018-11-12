@@ -1,11 +1,13 @@
 # CiscoConfigAudits
 Each of the files in this repository is a script that will preform a specific audit on the configuration 
 from a Cisco device. These scripts are written in python and at this point leverage the CiscoConfParse 
-library as a dependancy.
+library and Cisco Automation Framework as a dependencies.
 
 
 All of the scripts in this repository are created with the Unix philosophy in mind to do one thing 
-and do it well, and work together well with other programs.
+and do it well, and work together well with other programs. With that in mind that is why I created 
+a base.py module so all of the scripts can inherit from the Base class within and that will automatically
+take care of some base command line arguments and handling input from a pipe.
 
 
 ## Examples
