@@ -23,3 +23,31 @@ List out configured local users on a Cisco device
 ```bash
 python list_local_users --config_file config.txt
 ```
+
+## Using the Scripts
+#### Download the repository
+```bash
+git clone https://github.com/superadm1n/CiscoConfigAudits
+```
+#### Create a virtual environment
+```bash
+cd CiscoConfigAudits
+virtuanenv -p python3 env
+```
+
+#### Install dependancies
+```bash
+env/bin/pip install ciscoconfparse
+env/bin/pip install git+https://github.com/superadm1n/CiscoAutomationFramework@refactor
+```
+
+#### OPTIONAL - Activate Virtual Environment
+```bash
+source /env/bin/activate
+```
+
+#### Run Scripts
+```bash
+cd audits
+python get_running_config.py 192.168.1.1 username password enablePassword | python list_local_users.py
+```
