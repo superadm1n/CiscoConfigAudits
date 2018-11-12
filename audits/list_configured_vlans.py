@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-Script to list out the port channels and interfaces as called out in the configuration
+Script to list the configured vlans on the device
 """
 import os
 import sys
@@ -30,27 +30,9 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base(description='Script to list the port channels and corresponding interfaces.')
+t = base.Base(description='Script to list the configured vlans on a Cisco device.')
 cisco_cfg = t.setUp()
 
-
-def map_interfaces_to_ch_groups(cisco_cfg):
-    '''Takes an parsed cisco config as input and returns a dictionary of all the port channels
-    and the interfaces that belong to them'''
-    correlated_channel_groups = {}
-    for x in cisco_cfg.find_objects_w_child(r'^inter', r'channel-group'):
-        ch_group = x.re_search_children(r'channel-group')[0].text.strip()
-        if ch_group in correlated_channel_groups:
-            correlated_channel_groups[ch_group].append(x.text)
-        else:
-            correlated_channel_groups[ch_group] = [x.text]
-    return correlated_channel_groups
-
-def clean_port_channel_text(text):
-    return ' '.join(text.split(' ')[:2]).replace('channel-group', 'port channel')
-
-
-analyzed_results = map_interfaces_to_ch_groups(cisco_cfg)
-for x in analyzed_results:
-    print('{}: {}'.format(clean_port_channel_text(x), ', '.join(analyzed_results[x])))
-
+# finds any line in the config that starts with the word 'vlan' and then has a number
+# and prints them out
+[print(x.text) for x in cisco_cfg.find_objects(r'^vlan \d')]
