@@ -30,6 +30,7 @@ import sys
 class Base(argparse.ArgumentParser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.parsed_args = None
         if not self.prog:
             self.prog = 'Base Name'
         if not self.description:
@@ -53,6 +54,7 @@ class Base(argparse.ArgumentParser):
         :return:
         '''
         args = self.parse_args()
+        self.parsed_args = args
         # Sets defaults for command line arguments for cli arguments if none were given
         if not args.config_file:
             cisco_config = self.get_config()
