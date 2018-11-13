@@ -53,6 +53,6 @@ cisco_cfg = app.setUp()
 interface = parse_input(app.parsed_args.interface)
 
 # grabs the interface config and prints it out to the user
-interface_config = cisco_cfg.find_all_children(r'{}.*{}'.format(interface[0], interface[1]))
+interface_config = cisco_cfg.find_all_children(r'^interface.*{}.*{}$'.format(interface[0], interface[1]))
 for line in interface_config:
     print(line)
