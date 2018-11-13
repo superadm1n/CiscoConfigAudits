@@ -27,7 +27,7 @@ from ciscoconfparse import CiscoConfParse
 import sys
 
 
-class Base(argparse.ArgumentParser):
+class CLIApp(argparse.ArgumentParser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.parsed_args = None

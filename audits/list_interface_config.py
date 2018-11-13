@@ -45,7 +45,7 @@ def parse_input(input):
         x += 1
     return interface_name, interface_number
 
-app = base.Base()
+app = base.CLIApp()
 app.add_argument('interface', help='Interface to view the configuration of ex. gi1/0/1 or GigabitEthernet1/0/1', type=str)
 cisco_cfg = app.setUp()
 

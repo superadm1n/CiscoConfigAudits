@@ -31,7 +31,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base(description='Script to display the line inputs configured to allow Telnet connections.')
+t = base.CLIApp(description='Script to display the line inputs configured to allow Telnet connections.')
 cisco_cfg = t.setUp()
 
 

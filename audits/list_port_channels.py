@@ -30,7 +30,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base(description='Script to list the port channels and corresponding interfaces.')
+t = base.CLIApp(description='Script to list the port channels and corresponding interfaces.')
 cisco_cfg = t.setUp()
 
 

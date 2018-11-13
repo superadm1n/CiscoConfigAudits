@@ -30,7 +30,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base(description='Script to list the configured vlans on a Cisco device.')
+t = base.CLIApp(description='Script to list the configured vlans on a Cisco device.')
 cisco_cfg = t.setUp()
 
 # finds any line in the config that starts with the word 'vlan' and then has a number

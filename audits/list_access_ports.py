@@ -30,7 +30,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base()
+t = base.CLIApp()
 cisco_cfg = t.setUp()
 
 

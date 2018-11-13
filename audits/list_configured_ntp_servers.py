@@ -29,7 +29,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-t = base.Base(description='Lists all interfaces that are not admin down and are missing a description')
+t = base.CLIApp(description='Lists all interfaces that are not admin down and are missing a description')
 cisco_cfg = t.setUp()
 
 for x in cisco_cfg.find_objects(r'^ntp server'):
