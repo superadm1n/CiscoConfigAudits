@@ -1,7 +1,7 @@
 # CiscoConfigAudits
 Each of the files in this repository is a script that will preform a specific audit on the configuration 
 from a Cisco device. These scripts are written in python and at this point leverage the CiscoConfParse 
-library and Cisco Automation Framework as a dependencies.
+library, Cisco Automation Framework and OrionSDK as a dependencies.
 
 
 All of the scripts in this repository are created with the Unix philosophy in mind to do one thing 
@@ -39,7 +39,7 @@ virtuanenv -p python3 env
 
 #### Install dependancies
 ```bash
-env/bin/pip install ciscoconfparse
+env/bin/pip install ciscoconfparse orionsdk
 env/bin/pip install git+https://github.com/superadm1n/CiscoAutomationFramework@refactor
 ```
 
