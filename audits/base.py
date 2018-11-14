@@ -32,6 +32,7 @@ class CLIApp(argparse.ArgumentParser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.parsed_args = None
+        self.raw_config = None
         if not self.prog:
             self.prog = 'Base Name'
         if not self.description:
@@ -61,7 +62,7 @@ class CLIApp(argparse.ArgumentParser):
             cisco_config = self.get_config()
         else:
             cisco_config = args.config_file
-
+        self.raw_config = cisco_config
         try:
             cisco_cfg = CiscoConfParse(config=cisco_config)
             hostname = cisco_cfg.find_objects(r'^hostname')[0].text
