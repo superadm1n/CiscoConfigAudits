@@ -26,8 +26,12 @@ This script will gather the configuration of a specified device stored in Solarw
 """
 
 import argparse
-import orionsdk
 import requests
+import sys
+import os
+script_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(script_path)
+import base
 
 app = argparse.ArgumentParser()
 app.add_argument('swserver', help="Hostname or IP Address of Solarwinds Server", type=str)
@@ -53,8 +57,7 @@ AND ARCHIVE.ConfigType = 'Running'
 ORDER BY ARCHIVE.DownloadTime DESC'''.format(args.nodename)
 
 # logs into the server and executes query
-swis = orionsdk.SwisClient(args.swserver, args.username, args.password)
-query_results = swis.query(query)
+query_results = base.query_solarwinds(args.swserver, args.username, args.password, query)
 
 # grabs data from query results
 config = query_results['results'][0]['Config'].replace('\r\n', '\n')
