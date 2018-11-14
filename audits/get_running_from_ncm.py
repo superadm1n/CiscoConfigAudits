@@ -61,13 +61,18 @@ config = query_results['results'][0]['Config'].replace('\r\n', '\n')
 hostname = query_results['results'][0]['NodeCaption']
 download_time = query_results['results'][0]['DownloadTime']
 
-# prints the config
-print(config)
 
-# if specified prints the hostname
-if args.print_hostname:
-    print(hostname)
+try:
+    # prints the config
+    print(config)
+    # if specified prints the hostname
+    if args.print_hostname:
+        print(hostname)
 
-# if specified prints the download time
-if args.print_dltime:
-    print(download_time.replace('T', ' '))
+    # if specified prints the download time
+    if args.print_dltime:
+        print(download_time.replace('T', ' '))
+except BrokenPipeError:
+    pass
+
+
