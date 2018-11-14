@@ -25,6 +25,7 @@ SOFTWARE.
 import argparse
 from ciscoconfparse import CiscoConfParse
 import sys
+import orionsdk
 
 
 class CLIApp(argparse.ArgumentParser):
@@ -72,3 +73,8 @@ class CLIApp(argparse.ArgumentParser):
             print(hostname)
 
         return cisco_cfg
+
+def query_solarwinds(server, username, password, query):
+    # logs into the server and executes query
+    swis = orionsdk.SwisClient(server, username, password)
+    return swis.query(query)
