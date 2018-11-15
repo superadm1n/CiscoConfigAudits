@@ -24,16 +24,8 @@ SOFTWARE.
 
 Script that check if the running config has not been saved
 """
-import os
-import sys
-script_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(script_path)
-import base
-from datetime import datetime, timedelta
+from datetime import datetime
 
-
-t = base.CLIApp()
-cisco_cfg = t.setUp()
 
 def extract_date_from_config_string(configString):
     """Takes a string of a date as written in a Cisco configuration file and extracts the usable parts of it"""
@@ -56,7 +48,16 @@ def check_if_config_is_out_of_date():
 
 
 if __name__ == '__main__':
+    import os
+    import sys
+    script_path = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(script_path)
+    import base
+
+    t = base.CLIApp()
+    cisco_cfg = t.setUp()
     if check_if_config_is_out_of_date() is True:
         print('Configuration is saved!')
     else:
         print('Configuration is out of date!')
+        exit(2)
