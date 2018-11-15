@@ -31,10 +31,18 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_path)
 import base
 
-app = base.CLIApp()
+app = base.CLIApp(description='Script to emulate the "include" command on IOS.')
 app.add_argument('searchterm', help='Line of configuration to begin printing at')
+app.add_argument('-cs', help='Case sensitive search (defaults to case insensitive)', action='store_true')
 cisco_cfg = app.setUp_no_cisco_config()
 
 for line in app.raw_config:
-    if app.parsed_args.searchterm.lower() in line.lower():
+    if app.parsed_args.cs:
+        search_term = app.parsed_args.searchterm
+        target_line = line
+    else:
+        search_term = app.parsed_args.searchterm.lower()
+        target_line = line.lower()
+
+    if search_term in target_line:
         print(line)
