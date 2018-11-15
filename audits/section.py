@@ -35,7 +35,7 @@ app = base.CLIApp()
 app.add_argument('sectionstring', help='Start line of the section you wish to print')
 cisco_cfg = app.setUp()
 
-results = cisco_cfg.find_objects(r'{}'.format(app.parsed_args.sectionstring))
+results = cisco_cfg.find_objects(r'{}'.format(app.parsed_args.sectionstring.replace(' ', '.*')))
 
 for result in results:
     configsection = cisco_cfg.find_all_children(result.text)
