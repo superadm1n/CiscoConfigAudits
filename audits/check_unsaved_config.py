@@ -46,12 +46,17 @@ def convert_timestring_to_datetime(timeString):
     """Takes a clean version of a config date from a cisco config file and converts it to a datetime object"""
     return datetime.strptime(timeString, '%H:%M:%S %a %b %d %Y')
 
+def check_if_config_is_out_of_date():
+    last_config_change = extract_date_from_config_string(cisco_cfg.find_objects(r'^!.* Last configuration change')[0].text)
+    last_config_save = extract_date_from_config_string(cisco_cfg.find_objects(r'^!.* last updated')[0].text)
+    if convert_timestring_to_datetime(last_config_change) > convert_timestring_to_datetime(last_config_save):
+        return False
+    else:
+        return True
 
-last_config_change = extract_date_from_config_string(cisco_cfg.find_objects(r'^!.* Last configuration change')[0].text)
-last_config_save = extract_date_from_config_string(cisco_cfg.find_objects(r'^!.* last updated')[0].text)
 
-
-if convert_timestring_to_datetime(last_config_change) > convert_timestring_to_datetime(last_config_save):
-    print('Saved configuration is out of date!')
-else:
-    print('Configuration is saved!')
+if __name__ == '__main__':
+    if check_if_config_is_out_of_date() is True:
+        print('Configuration is saved!')
+    else:
+        print('Configuration is out of date!')
