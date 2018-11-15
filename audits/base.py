@@ -37,8 +37,16 @@ class CLIApp(argparse.ArgumentParser):
             self.prog = 'Base Name'
         if not self.description:
             self.description = 'Base Description'
+
+    def _add_config_file_arg(self):
         self.add_argument("--config_file", help="File to read Cisco configuration from.", type=str)
+
+    def _add_print_hostname_arg(self):
         self.add_argument("--print_hostname", help="Prints the hostname from the Cisco configuration.", action='store_true')
+
+    def _add_base_arguments(self):
+        self._add_config_file_arg()
+        self._add_print_hostname_arg()
 
     def get_config(self):
         '''checks if the program was run in a pipeline and if so it will use the data from the pipe as the config file else it will
@@ -55,6 +63,8 @@ class CLIApp(argparse.ArgumentParser):
 
         :return:
         '''
+        self._add_base_arguments()
+
         args = self.parse_args()
         self.parsed_args = args
         # Sets defaults for command line arguments for cli arguments if none were given
@@ -74,6 +84,24 @@ class CLIApp(argparse.ArgumentParser):
             print(hostname)
 
         return cisco_cfg
+
+    def setUp_no_cisco_config(self):
+        '''Parses the arguments that have been supplied to the class, parses supplied cisco configuration
+        and returns that object
+
+        :return:
+        '''
+        self._add_config_file_arg()
+        args = self.parse_args()
+        self.parsed_args = args
+        # Sets defaults for command line arguments for cli arguments if none were given
+        if not args.config_file:
+            cisco_config = self.get_config()
+        else:
+            cisco_config = args.config_file
+        self.raw_config = cisco_config
+
+        return cisco_config
 
 def query_solarwinds(server, username, password, query):
     # logs into the server and executes query
