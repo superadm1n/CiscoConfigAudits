@@ -29,6 +29,13 @@ import orionsdk
 
 
 class CLIApp(argparse.ArgumentParser):
+    '''
+    This class is designed to be used when running an audit on a config, it handles implementing
+    behavior for reading config from a file or stdin and sets up some base cli arguments.
+    This class often should not be used when making a script to send configuration to
+    a device as most of the functionality it will implement will most likely not be needed
+    for issuing commands on a device
+    '''
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.parsed_args = None
