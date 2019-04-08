@@ -39,8 +39,7 @@ virtuanenv -p python3 env
 
 #### Install dependancies
 ```bash
-env/bin/pip install ciscoconfparse orionsdk
-env/bin/pip install git+https://github.com/superadm1n/CiscoAutomationFramework@refactor
+env/bin/pip install ciscoconfparse orionsdk CiscoAutomationFramework
 ```
 
 #### OPTIONAL - Activate Virtual Environment
